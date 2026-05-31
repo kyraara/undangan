@@ -1,9 +1,11 @@
-import { weddingConfig } from "@/lib/config"
+"use client"
+
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
 export function StorySection() {
-  const { story } = weddingConfig
+  const { story } = useConfig()
 
   return (
     <section

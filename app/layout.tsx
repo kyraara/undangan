@@ -1,7 +1,11 @@
+export const dynamic = 'force-dynamic'
+
 import type { Metadata, Viewport } from "next"
 import { Great_Vibes, Playfair_Display, Lora } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/sonner"
+import { getConfig } from "@/lib/get-config"
+import { ConfigProvider } from "@/lib/config-context"
 import "./globals.css"
 
 const greatVibes = Great_Vibes({
@@ -28,19 +32,19 @@ const lora = Lora({
 })
 
 export const metadata: Metadata = {
-  title: "Ahmad & Siti — 12 Juli 2026",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  title: "Ahmad & Siti — 03 Juli 2026",
   description:
-    "Dengan penuh kebahagiaan kami mengundang kehadiran Anda di pernikahan Ahmad & Siti pada 12 Juli 2026.",
-  generator: "v0.app",
+    "Dengan penuh kebahagiaan kami mengundang kehadiran Anda di pernikahan Ahmad Fauzi & Siti Rahayu pada 03 Juli 2026.",
   openGraph: {
-    title: "Undangan Pernikahan Ahmad & Siti",
-    description: "12 Juli 2026 · Bersama kami merayakan hari istimewa ini.",
+    title: "Undangan Pernikahan Ahmad Fauzi & Siti Rahayu",
+    description: "03-04 Juli 2026 · Bersama kami merayakan hari istimewa ini.",
     images: ["/images/gallery/hero.jpg"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Undangan Pernikahan Ahmad & Siti",
+    title: "Undangan Pernikahan Ahmad Fauzi & Siti Rahayu",
     images: ["/images/gallery/hero.jpg"],
   },
 }
@@ -51,20 +55,24 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const config = await getConfig()
+  const themeClass = `theme-${config.concept}`
   return (
     <html
       lang="id"
-      className={`${greatVibes.variable} ${playfair.variable} ${lora.variable} bg-background`}
+      className={`${themeClass} ${greatVibes.variable} ${playfair.variable} ${lora.variable} bg-background`}
     >
       <body className="font-body antialiased">
-        {children}
-        <Toaster position="top-center" />
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        <ConfigProvider config={config}>
+          {children}
+          <Toaster position="top-center" />
+          {process.env.NODE_ENV === "production" && <Analytics />}
+        </ConfigProvider>
       </body>
     </html>
   )

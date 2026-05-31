@@ -1,11 +1,13 @@
+"use client"
+
 import { Calendar, Clock, MapPin } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountdownTimer } from "@/components/ui/countdown-timer"
 
 export function EventSection() {
-  const { events } = weddingConfig
+  const { events } = useConfig()
   const main = events[0]
   const targetIso = `${main.date}T${main.time}:00`
 

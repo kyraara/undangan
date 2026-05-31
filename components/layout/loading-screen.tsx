@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Mail } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 
 interface LoadingScreenProps {
   onOpen: () => void
@@ -10,6 +10,7 @@ interface LoadingScreenProps {
 }
 
 export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
+  const { groom, bride, events } = useConfig()
   const [closing, setClosing] = useState(false)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-gradient-hero px-6 transition-opacity duration-700 ${
+      className={`loading-screen fixed inset-0 z-[200] flex items-center justify-center bg-gradient-hero px-6 transition-opacity duration-700 ${
         closing ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
@@ -55,9 +56,9 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
           The Wedding of
         </p>
         <h1 className="font-display text-6xl leading-none text-[var(--color-bg-dark)] sm:text-7xl">
-          {weddingConfig.groom.nameShort}
+          {groom.nameShort}
           <span className="mx-2 text-[var(--color-gold)]">&</span>
-          {weddingConfig.bride.nameShort}
+          {bride.nameShort}
         </h1>
 
         <div className="my-6 flex items-center gap-3 text-[var(--color-gold)]" aria-hidden="true">
@@ -69,7 +70,7 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
         </div>
 
         <p className="font-heading text-lg italic text-[var(--color-text-secondary)] sm:text-xl">
-          Sabtu, 12 Juli 2026
+          {events[0].day}, {events[0].dateDisplay}
         </p>
 
         <div className="mt-10 w-full rounded-2xl border border-[var(--color-gold)]/30 bg-[var(--color-bg-card)]/70 p-5 backdrop-blur-sm">

@@ -1,10 +1,12 @@
+"use client"
+
 import { Heart } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { FloralDivider } from "@/components/ui/floral-divider"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 
 export function FooterSection() {
-  const { groom, bride, events } = weddingConfig
+  const { groom, bride, events } = useConfig()
 
   return (
     <footer className="relative overflow-hidden bg-[var(--color-bg-dark)] px-6 py-20 text-center text-[var(--color-text-light)]">

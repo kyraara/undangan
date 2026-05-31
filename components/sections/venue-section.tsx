@@ -1,10 +1,13 @@
+"use client"
+
 import { MapPin, Navigation } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
 export function VenueSection() {
-  const venue = weddingConfig.events[1] // resepsi as primary venue
+  const { events } = useConfig()
+  const venue = events[1]
 
   return (
     <section
@@ -51,7 +54,7 @@ export function VenueSection() {
               <div className="relative overflow-hidden rounded-3xl border border-[var(--color-gold)]/30 shadow-card">
                 <iframe
                   title={`Peta lokasi ${venue.venue}`}
-                  src="https://www.google.com/maps?q=Jakarta&output=embed"
+                  src={venue.mapsEmbed}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="h-[320px] w-full sm:h-[420px]"

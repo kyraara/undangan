@@ -8,7 +8,7 @@ import { CheckCircle2, Send, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { cn } from "@/lib/utils"
 
 const schema = z.object({
@@ -23,6 +23,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 export function RSVPSection() {
+  const { rsvpDeadlineDays } = useConfig()
   const [submitted, setSubmitted] = useState<FormValues | null>(null)
   const {
     register,
@@ -77,7 +78,7 @@ export function RSVPSection() {
           <SectionTitle
             eyebrow="RSVP"
             title="Konfirmasi Kehadiran"
-            description={`Mohon konfirmasi kehadiran Anda paling lambat ${weddingConfig.rsvpDeadlineDays} hari sebelum acara.`}
+            description={`Mohon konfirmasi kehadiran Anda paling lambat ${rsvpDeadlineDays} hari sebelum acara.`}
             invert
           />
         </AnimatedReveal>

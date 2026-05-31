@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
+import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
@@ -20,26 +21,14 @@ export async function POST(request: Request) {
       request.headers.get('x-real-ip') ||
       'unknown';
 
-    // Insert to Supabase
-    const { error } = await supabase
-      .from('rsvp')
-      .insert([
-        {
-          nama,
-          jumlah_tamu: Number(jumlah_tamu),
-          kehadiran,
-          pesan: pesan || null,
-          ip_address,
-        },
-      ]);
+    const id = crypto.randomUUID();
 
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { success: false, error: 'Gagal menyimpan data RSVP.' },
-        { status: 500 }
-      );
-    }
+    // Insert to MySQL
+    await query(
+      `INSERT INTO rsvp (id, nama, jumlah_tamu, kehadiran, pesan, ip_address) 
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [id, nama, Number(jumlah_tamu), kehadiran, pesan || null, ip_address]
+    );
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {

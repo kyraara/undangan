@@ -3,12 +3,12 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
 export function GallerySection() {
-  const { gallery } = weddingConfig
+  const { gallery, hashtag } = useConfig()
   const [lightbox, setLightbox] = useState<number | null>(null)
 
   const next = () =>
@@ -65,7 +65,7 @@ export function GallerySection() {
         </AnimatedReveal>
 
         <p className="mt-10 text-center font-heading text-sm italic text-[var(--color-text-secondary)]">
-          {weddingConfig.hashtag}
+          {hashtag}
         </p>
       </div>
 

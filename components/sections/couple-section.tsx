@@ -1,6 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import { Instagram } from "lucide-react"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
@@ -13,6 +15,8 @@ interface PersonProps {
   photo: string
   bio: string
   side: "left" | "right"
+  instagramHandle?: string
+  instagramUrl?: string
 }
 
 function PersonCard({
@@ -23,6 +27,8 @@ function PersonCard({
   photo,
   bio,
   side,
+  instagramHandle,
+  instagramUrl,
 }: PersonProps) {
   return (
     <AnimatedReveal variant="fadeUp" delay={side === "left" ? 0 : 150}>
@@ -68,20 +74,27 @@ function PersonCard({
           {bio}
         </p>
 
-        <button
-          type="button"
-          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/40 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)] transition hover:border-[var(--color-gold)] hover:text-[var(--color-bg-dark)]"
-        >
-          <Instagram className="h-3.5 w-3.5" />
-          @{name.toLowerCase().replace(/\s+/g, ".")}
-        </button>
+        {instagramHandle && (
+          <a
+            href={instagramUrl || `https://instagram.com/${instagramHandle.replace(/^@/, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/40 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)] transition hover:border-[var(--color-gold)] hover:text-[var(--color-bg-dark)]"
+          >
+            <Instagram className="h-3.5 w-3.5" />
+            {instagramHandle}
+          </a>
+        )}
       </article>
     </AnimatedReveal>
   )
 }
 
 export function CoupleSection() {
-  const { groom, bride } = weddingConfig
+  const { groom, bride, socialMedia } = useConfig()
+
+  const groomIg = socialMedia?.groom?.find((sm: any) => sm.platform === "instagram")
+  const brideIg = socialMedia?.bride?.find((sm: any) => sm.platform === "instagram")
 
   return (
     <section
@@ -107,6 +120,8 @@ export function CoupleSection() {
             photo={groom.photo}
             bio={groom.bio}
             side="left"
+            instagramHandle={groomIg?.handle}
+            instagramUrl={groomIg?.url}
           />
           <PersonCard
             name={bride.name}
@@ -117,6 +132,8 @@ export function CoupleSection() {
             photo={bride.photo}
             bio={bride.bio}
             side="right"
+            instagramHandle={brideIg?.handle}
+            instagramUrl={brideIg?.url}
           />
         </div>
       </div>

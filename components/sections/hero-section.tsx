@@ -1,19 +1,37 @@
+"use client"
+
 import Image from "next/image"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { Petals } from "@/components/ui/petals"
 
+const MONTH_NAMES = {
+  "01": "Januari",
+  "02": "Februari",
+  "03": "Maret",
+  "04": "April",
+  "05": "Mei",
+  "06": "Juni",
+  "07": "Juli",
+  "08": "Agustus",
+  "09": "September",
+  "10": "Oktober",
+  "11": "November",
+  "12": "Desember",
+} as const
+
 export function HeroSection() {
-  const { groom, bride, hero, events } = weddingConfig
+  const { groom, bride, hero, events } = useConfig()
   const main = events[0]
   const [yyyy, mm, dd] = main.date.split("-")
+  const monthName = MONTH_NAMES[mm as keyof typeof MONTH_NAMES] || "Juli"
 
   return (
     <section
       id="hero"
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[var(--color-bg-dark)] px-6 py-20 text-center text-[var(--color-text-light)]"
     >
-      {/* Background image */}
-      <div className="absolute inset-0">
+      {/* Background image (Desktop only, mobile uses global fixed video) */}
+      <div className="hidden md:block absolute inset-0">
         <Image
           src={hero.image || "/placeholder.svg"}
           alt="Prewedding"
@@ -89,7 +107,7 @@ export function HeroSection() {
           </div>
           <div className="border-x border-[var(--color-gold)]/40 px-4 text-center">
             <p className="font-heading text-xs uppercase tracking-[0.25em] text-[var(--color-gold-light)] sm:text-sm">
-              Juli
+              {monthName}
             </p>
           </div>
           <div className="text-center">

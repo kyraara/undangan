@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { query } from '@/lib/db';
+import crypto from 'crypto';
 
-// Helper to sanitize basic HTML from string (very basic, can be improved)
+// Helper to sanitize basic HTML from string
 function sanitizeText(text: string) {
   if (!text) return '';
   return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -29,27 +30,24 @@ export async function POST(request: Request) {
 
     const sanitizedPesan = sanitizeText(pesan);
     const sanitizedNama = sanitizeText(nama);
+    const id = crypto.randomUUID();
+    const createdAt = new Date().toISOString();
 
-    // Insert to Supabase
-    const { data, error } = await supabase
-      .from('ucapan')
-      .insert([
-        {
-          nama: sanitizedNama,
-          pesan: sanitizedPesan,
-        },
-      ])
-      .select();
+    // Insert to MySQL
+    await query(
+      `INSERT INTO ucapan (id, nama, pesan, status) VALUES (?, ?, ?, 'pending')`,
+      [id, sanitizedNama, sanitizedPesan]
+    );
 
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { success: false, error: 'Gagal mengirim ucapan.' },
-        { status: 500 }
-      );
-    }
+    const insertedData = [{
+      id,
+      nama: sanitizedNama,
+      pesan: sanitizedPesan,
+      status: 'pending',
+      created_at: createdAt
+    }];
 
-    return NextResponse.json({ success: true, data }, { status: 201 });
+    return NextResponse.json({ success: true, data: insertedData }, { status: 201 });
   } catch (error) {
     console.error('API error:', error);
     return NextResponse.json(
@@ -62,25 +60,21 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '50', 10);
+    const limitRaw = parseInt(searchParams.get('limit') || '50', 10);
+    const limit = isNaN(limitRaw) || limitRaw < 1 ? 50 : Math.min(limitRaw, 200);
 
-    // Fetch from Supabase
-    const { data, error, count } = await supabase
-      .from('ucapan')
-      .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false })
-      .limit(limit);
+    // Fetch from MySQL (Only show approved wishes on public page)
+    // LIMIT cannot use prepared-statement placeholder (?) in mysql2 execute — embed the safe integer directly.
+    const wishes = await query(
+      `SELECT * FROM ucapan WHERE status = 'approved' ORDER BY created_at DESC LIMIT ${limit}`,
+    );
 
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { success: false, error: 'Gagal mengambil data ucapan.' },
-        { status: 500 }
-      );
-    }
+    // Also get count
+    const countResult = await query(`SELECT COUNT(*) as count FROM ucapan WHERE status = 'approved'`);
+    const count = countResult[0]?.count || 0;
 
     return NextResponse.json(
-      { success: true, data, count },
+      { success: true, data: wishes, count },
       { status: 200 }
     );
   } catch (error) {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { LoadingScreen } from "@/components/layout/loading-screen"
 import { MusicPlayer } from "@/components/layout/music-player"
 import { HeroSection } from "@/components/sections/hero-section"
@@ -14,10 +14,13 @@ import { GiftSection } from "@/components/sections/gift-section"
 import { RSVPSection } from "@/components/sections/rsvp-section"
 import { WishesSection } from "@/components/sections/wishes-section"
 import { FooterSection } from "@/components/sections/footer-section"
+import { useConfig } from "@/lib/config-context"
 
 export default function Page() {
+  const { hero, music } = useConfig()
   const [opened, setOpened] = useState(false)
   const [guestName, setGuestName] = useState<string | undefined>(undefined)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -25,17 +28,51 @@ export default function Page() {
     if (to) setGuestName(decodeURIComponent(to))
   }, [])
 
+  // Force play the video when component mounts to ensure immediate autoplay on mobile
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((err) => {
+        console.warn("Video autoplay was prevented, playing on user interaction instead:", err)
+      })
+    }
+  }, [])
+
   const handleOpen = () => {
     setOpened(true)
     // Smooth-scroll to top of content
     window.scrollTo({ top: 0, behavior: "instant" })
+
+    // Also try to play video again in case browser blocked it until user interaction
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {})
+    }
   }
 
   return (
     <>
+      {/* Global Background Video for Mobile Devices (starts playing from the very beginning) */}
+      {hero.videoMobile && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="block md:hidden fixed inset-0 w-full h-full object-cover z-0 opacity-80 pointer-events-none"
+          src={hero.videoMobile}
+        />
+      )}
+
+      {/* Concept-aware color tint overlay — selaraskan warna video dengan tema aktif.
+          Hanya tampil di mobile (di atas video z-0, di bawah konten z-10). */}
+      <div
+        className="mobile-video-tint-overlay block md:hidden fixed inset-0 z-1 pointer-events-none"
+        aria-hidden="true"
+      />
+
       {!opened && <LoadingScreen onOpen={handleOpen} guestName={guestName} />}
 
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <OpeningSection />
         <CoupleSection />
@@ -49,7 +86,7 @@ export default function Page() {
         <FooterSection />
       </main>
 
-      {opened && <MusicPlayer autoplay />}
+      {opened && <MusicPlayer src={music.src} autoplay />}
     </>
   )
 }

@@ -3,12 +3,12 @@
 import { useState } from "react"
 import { Check, Copy, Gift } from "lucide-react"
 import { toast } from "sonner"
-import { weddingConfig } from "@/lib/config"
+import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
 export function GiftSection() {
-  const { bankAccounts } = weddingConfig
+  const { bankAccounts } = useConfig()
   const [copied, setCopied] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
 

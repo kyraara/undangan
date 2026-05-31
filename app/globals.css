@@ -7,19 +7,6 @@
    Konsep A — Romantic Botanical Luxury
    ============================================ */
 :root {
-  /* Brand colors */
-  --color-bg-primary: #f5ecd7;
-  --color-bg-dark: #2c3e2d;
-  --color-bg-card: #faf7f2;
-  --color-gold: #c9a84c;
-  --color-gold-light: #e8d5a3;
-  --color-rose: #c4857a;
-  --color-sage: #8a9e7e;
-  --color-text-primary: #2c2416;
-  --color-text-secondary: #6b5a45;
-  --color-text-light: #faf7f2;
-  --color-border: rgba(201, 168, 76, 0.3);
-
   /* Spacing */
   --section-padding-y: 6rem;
   --section-padding-x: 1.5rem;
@@ -31,12 +18,30 @@
   --shadow-gold: 0 4px 32px rgba(201, 168, 76, 0.25);
   --shadow-card: 0 8px 40px rgba(44, 36, 22, 0.12);
 
-  /* Gradients */
+  --radius: 0.75rem;
+}
+
+/* ============================================
+   Concept A — Romantic Botanical Luxury (Default)
+   ============================================ */
+.theme-A, :root:not([class*="theme-"]) {
+  --color-bg-primary: #f5ecd7;
+  --color-bg-dark: #2c3e2d;
+  --color-bg-card: #faf7f2;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d5a3;
+  --color-rose: #c4857a;
+  --color-sage: #8a9e7e;
+  --color-text-primary: #2c2416;
+  --color-text-secondary: #6b5a45;
+  --color-text-light: #faf7f2;
+  --color-border: rgba(201, 168, 76, 0.3);
+  --mobile-video-tint: rgba(245, 236, 215, 0.20); /* warm cream tint */
+
   --gradient-hero: linear-gradient(160deg, #f5ecd7 0%, #e8d5b0 50%, #f5ecd7 100%);
   --gradient-dark: linear-gradient(180deg, #2c3e2d 0%, #1a2e1b 100%);
   --gradient-gold: linear-gradient(135deg, #c9a84c, #e8d5a3, #c9a84c);
 
-  /* shadcn defaults (mapped to botanical palette) */
   --background: #f5ecd7;
   --foreground: #2c2416;
   --card: #faf7f2;
@@ -56,7 +61,216 @@
   --border: rgba(201, 168, 76, 0.3);
   --input: rgba(201, 168, 76, 0.3);
   --ring: #c9a84c;
-  --radius: 0.75rem;
+}
+
+/* ============================================
+   Concept B — Art Deco Glamour
+   ============================================ */
+.theme-B {
+  --color-bg-primary: #f5e6c8;
+  --color-bg-dark: #1a1a1a;
+  --color-bg-card: #2d2d2d;
+  --color-gold: #c9a84c;
+  --color-gold-light: #f5e6c8;
+  --color-rose: #8b7355;
+  --color-sage: #556b2f;
+  --color-text-primary: #e5d8bf;
+  --color-text-secondary: #a3957a;
+  --color-text-light: #f5e6c8;
+  --color-border: rgba(201, 168, 76, 0.4);
+  --mobile-video-tint: rgba(26, 26, 26, 0.25); /* charcoal dark tint */
+
+  --gradient-hero: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  --gradient-dark: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+  --gradient-gold: linear-gradient(135deg, #c9a84c, #e8d5a3, #c9a84c);
+
+  --background: #1a1a1a;
+  --foreground: #f5e6c8;
+  --card: #2d2d2d;
+  --card-foreground: #f5e6c8;
+  --popover: #2d2d2d;
+  --popover-foreground: #f5e6c8;
+  --primary: #c9a84c;
+  --primary-foreground: #1a1a1a;
+  --secondary: #2d2d2d;
+  --secondary-foreground: #f5e6c8;
+  --muted: #3d3d3d;
+  --muted-foreground: #a3957a;
+  --accent: #c9a84c;
+  --accent-foreground: #1a1a1a;
+  --destructive: #8b7355;
+  --destructive-foreground: #f5e6c8;
+  --border: rgba(201, 168, 76, 0.4);
+  --input: rgba(201, 168, 76, 0.4);
+  --ring: #c9a84c;
+}
+
+/* ============================================
+   Concept C — Minimalist Japanese (Japandi)
+   ============================================ */
+.theme-C {
+  --color-bg-primary: #fafaf8;
+  --color-bg-dark: #1c1c1c;
+  --color-bg-card: #ffffff;
+  --color-gold: #e8423c;
+  --color-gold-light: #fcdad8;
+  --color-rose: #c8b8a2;
+  --color-sage: #6b7b6e;
+  --color-text-primary: #1c1c1c;
+  --color-text-secondary: #666666;
+  --color-text-light: #fafaf8;
+  --color-border: rgba(232, 66, 60, 0.2);
+  --mobile-video-tint: rgba(250, 250, 248, 0.18); /* clean white tint */
+
+  --gradient-hero: linear-gradient(180deg, #ffffff 0%, #fafaf8 100%);
+  --gradient-dark: linear-gradient(180deg, #262626 0%, #1c1c1c 100%);
+  --gradient-gold: linear-gradient(135deg, #e8423c, #fcdad8, #e8423c);
+
+  --background: #fafaf8;
+  --foreground: #1c1c1c;
+  --card: #ffffff;
+  --card-foreground: #1c1c1c;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
+  --primary: #1c1c1c;
+  --primary-foreground: #fafaf8;
+  --secondary: #fcdad8;
+  --secondary-foreground: #1c1c1c;
+  --muted: #f4f4f2;
+  --muted-foreground: #666666;
+  --accent: #e8423c;
+  --accent-foreground: #ffffff;
+  --destructive: #e8423c;
+  --destructive-foreground: #ffffff;
+  --border: rgba(232, 66, 60, 0.2);
+  --input: rgba(232, 66, 60, 0.2);
+  --ring: #e8423c;
+}
+
+/* ============================================
+   Concept D — Tropical Bali
+   ============================================ */
+.theme-D {
+  --color-bg-primary: #f0e6d3;
+  --color-bg-dark: #3d5a3e;
+  --color-bg-card: #faf5eb;
+  --color-gold: #c45c26;
+  --color-gold-light: #f0c4ad;
+  --color-rose: #c45c26;
+  --color-sage: #8b4513;
+  --color-text-primary: #2b1d0c;
+  --color-text-secondary: #5e4f3c;
+  --color-text-light: #faf5eb;
+  --color-border: rgba(196, 92, 38, 0.25);
+  --mobile-video-tint: rgba(240, 230, 211, 0.20); /* warm bali tint */
+
+  --gradient-hero: linear-gradient(180deg, #f0e6d3 0%, #e5d7bd 100%);
+  --gradient-dark: linear-gradient(180deg, #3d5a3e 0%, #273b28 100%);
+  --gradient-gold: linear-gradient(135deg, #c45c26, #f0c4ad, #c45c26);
+
+  --background: #f0e6d3;
+  --foreground: #2b1d0c;
+  --card: #faf5eb;
+  --card-foreground: #2b1d0c;
+  --popover: #faf5eb;
+  --popover-foreground: #2b1d0c;
+  --primary: #3d5a3e;
+  --primary-foreground: #faf5eb;
+  --secondary: #f0c4ad;
+  --secondary-foreground: #2b1d0c;
+  --muted: #e7dbca;
+  --muted-foreground: #5e4f3c;
+  --accent: #c45c26;
+  --accent-foreground: #ffffff;
+  --destructive: #c45c26;
+  --destructive-foreground: #ffffff;
+  --border: rgba(196, 92, 38, 0.25);
+  --input: rgba(196, 92, 38, 0.25);
+  --ring: #c45c26;
+}
+
+/* ============================================
+   Concept E — Celestial Night
+   ============================================ */
+.theme-E {
+  --color-bg-primary: #0d1b2a;
+  --color-bg-dark: #070e17;
+  --color-bg-card: #1b263b;
+  --color-gold: #e8d5b7;
+  --color-gold-light: #f4eae0;
+  --color-rose: #7b5ea7;
+  --color-sage: #1b3a5c;
+  --color-text-primary: #faf7f2;
+  --color-text-secondary: #a9b2c3;
+  --color-text-light: #faf7f2;
+  --color-border: rgba(232, 213, 183, 0.25);
+  --mobile-video-tint: rgba(13, 27, 42, 0.35); /* deep night blue tint */
+
+  --gradient-hero: linear-gradient(180deg, #0d1b2a 0%, #070e17 100%);
+  --gradient-dark: linear-gradient(180deg, #070e17 0%, #03060a 100%);
+  --gradient-gold: linear-gradient(135deg, #e8d5b7, #f4eae0, #e8d5b7);
+
+  --background: #0d1b2a;
+  --foreground: #faf7f2;
+  --card: #1b263b;
+  --card-foreground: #faf7f2;
+  --popover: #1b263b;
+  --popover-foreground: #faf7f2;
+  --primary: #e8d5b7;
+  --primary-foreground: #070e17;
+  --secondary: #1b263b;
+  --secondary-foreground: #faf7f2;
+  --muted: #152238;
+  --muted-foreground: #a9b2c3;
+  --accent: #e8d5b7;
+  --accent-foreground: #070e17;
+  --destructive: #7b5ea7;
+  --destructive-foreground: #faf7f2;
+  --border: rgba(232, 213, 183, 0.25);
+  --input: rgba(232, 213, 183, 0.25);
+  --ring: #e8d5b7;
+}
+
+/* ============================================
+   Concept F — Modern Serif Editorial
+   ============================================ */
+.theme-F {
+  --color-bg-primary: #f8f5f0;
+  --color-bg-dark: #1a1a1a;
+  --color-bg-card: #ffffff;
+  --color-gold: #8a7e6e;
+  --color-gold-light: #d4c4b0;
+  --color-rose: #8a7e6e;
+  --color-sage: #4a4a4a;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-light: #f8f5f0;
+  --color-border: rgba(138, 126, 110, 0.3);
+  --mobile-video-tint: rgba(248, 245, 240, 0.18); /* editorial off-white tint */
+
+  --gradient-hero: linear-gradient(180deg, #ffffff 0%, #f8f5f0 100%);
+  --gradient-dark: linear-gradient(180deg, #262626 0%, #1a1a1a 100%);
+  --gradient-gold: linear-gradient(135deg, #8a7e6e, #d4c4b0, #8a7e6e);
+
+  --background: #f8f5f0;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #1a1a1a;
+  --primary-foreground: #f8f5f0;
+  --secondary: #d4c4b0;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f0ede8;
+  --muted-foreground: #4a4a4a;
+  --accent: #8a7e6e;
+  --accent-foreground: #ffffff;
+  --destructive: #8a7e6e;
+  --destructive-foreground: #ffffff;
+  --border: rgba(138, 126, 110, 0.3);
+  --input: rgba(138, 126, 110, 0.3);
+  --ring: #8a7e6e;
 }
 
 @theme inline {
@@ -281,4 +495,63 @@
 }
 .float-y {
   animation: float-y 4s ease-in-out infinite;
+}
+
+/* ============================================
+   Mobile Video — Concept Tint Overlay
+   Kelas ini dipakai di app/page.tsx untuk
+   mewarnai video sesuai tema aktif.
+   ============================================ */
+.mobile-video-tint-overlay {
+  background: var(--mobile-video-tint, rgba(245, 236, 215, 0.20));
+}
+
+/* ============================================
+   Mobile Video Background Transparent Styling
+   Semua section dibuat semi-transparan agar
+   video background di mobile tetap terlihat,
+   sambil menjaga keterbacaan teks.
+   ============================================ */
+@media (max-width: 767px) {
+  /* Loading screen: sedikit transparan, video tetap terlihat */
+  .loading-screen {
+    background: color-mix(in srgb, var(--color-bg-primary) 38%, transparent) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+
+  /* Default semua section: 45% opaque cream + blur untuk readability */
+  main section {
+    background-color: color-mix(in srgb, var(--color-bg-primary) 45%, transparent) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+
+  /* Hero: sepenuhnya transparan, video tampil 100% */
+  main section#hero {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Card-background sections (couple, venue, gift): pakai --color-bg-card */
+  main section#couple,
+  main section#venue,
+  main section#gift {
+    background-color: color-mix(in srgb, var(--color-bg-card) 48%, transparent) !important;
+  }
+
+  /* Gallery: pakai --color-bg-primary (cream), bukan card */
+  main section#gallery {
+    background-color: color-mix(in srgb, var(--color-bg-primary) 45%, transparent) !important;
+  }
+
+  /* Dark-themed sections: cukup opaque agar teks terang tetap terbaca */
+  main section#event,
+  main section#rsvp {
+    background: color-mix(in srgb, var(--color-bg-dark) 58%, transparent) !important;
+  }
+
+  /* Footer: paling opaque karena elemen teks paling padat */
+  main footer {
+    background: color-mix(in srgb, var(--color-bg-dark) 65%, transparent) !important;
+    backdrop-filter: blur(4px) !important;
+  }
 }
