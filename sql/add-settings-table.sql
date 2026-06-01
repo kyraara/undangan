@@ -1,8 +1,6 @@
 -- Tambahkan tabel settings untuk menyimpan konfigurasi wedding secara dinamis
 -- Jalankan sekali di database: mysql -u root -p wedding < sql/add-settings-table.sql
 
-USE wedding;
-
 CREATE TABLE IF NOT EXISTS settings (
   id          INT          NOT NULL DEFAULT 1,
   config_json LONGTEXT     NOT NULL,

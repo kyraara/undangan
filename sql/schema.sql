@@ -3,8 +3,7 @@
 -- Database: wedding
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS wedding CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE wedding;
+-- Jalankan: mysql -u USER -p DBNAME < sql/schema.sql
 
 -- ------------------------------------------------------------
 -- Tabel: admin_users
