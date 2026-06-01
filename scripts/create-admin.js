@@ -10,7 +10,7 @@
 
 const crypto = require('crypto')
 const mysql = require('mysql2/promise')
-require('dotenv').config()
+try { require('dotenv').config() } catch (e) { /* dotenv optional, env vars may already be set */ }
 
 async function hashPassword(password) {
   const salt = crypto.randomBytes(16).toString('hex')
