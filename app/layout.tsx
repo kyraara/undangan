@@ -31,22 +31,27 @@ const lora = Lora({
   display: "swap",
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
-  title: "Ahmad & Siti — 03 Juli 2026",
-  description:
-    "Dengan penuh kebahagiaan kami mengundang kehadiran Anda di pernikahan Ahmad Fauzi & Siti Rahayu pada 03 Juli 2026.",
-  openGraph: {
-    title: "Undangan Pernikahan Ahmad Fauzi & Siti Rahayu",
-    description: "03-04 Juli 2026 · Bersama kami merayakan hari istimewa ini.",
-    images: ["/images/gallery/hero.jpg"],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Undangan Pernikahan Ahmad Fauzi & Siti Rahayu",
-    images: ["/images/gallery/hero.jpg"],
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getConfig()
+  const title = `${config.groom.nameShort} & ${config.bride.nameShort} — ${config.events[0].dateDisplay}`
+  const fullTitle = `Undangan Pernikahan ${config.groom.nameDisplay} & ${config.bride.nameDisplay}`
+  const heroImage = config.hero.image || "/images/gallery/hero.jpg"
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+    title,
+    description: `Dengan penuh kebahagiaan kami mengundang kehadiran Anda di pernikahan ${config.groom.nameDisplay} & ${config.bride.nameDisplay} pada ${config.events[0].dateDisplay}.`,
+    openGraph: {
+      title: fullTitle,
+      description: `${config.events[0].dateDisplay} · Bersama kami merayakan hari istimewa ini.`,
+      images: [heroImage],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      images: [heroImage],
+    },
+  }
 }
 
 export const viewport: Viewport = {

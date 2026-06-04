@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   Save, Link as LinkIcon, Calendar, Music, CreditCard, User,
   Sparkles, Loader2, Image as ImageIcon, Images, Plus, Trash2, BookOpen,
-  Instagram,
+  Instagram, Copy, Check, Share2,
 } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 import { FileUploadInput } from "@/components/admin/file-upload-input"
@@ -27,6 +27,23 @@ export default function AdminSettingsPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [config, setConfig]   = useState<any>(() => JSON.parse(JSON.stringify(initialConfig)))
   const [newGalleryAlt, setNewGalleryAlt] = useState("")
+  const [guestNameInput, setGuestNameInput] = useState("")
+  const [copied, setCopied] = useState(false)
+  const [siteOrigin, setSiteOrigin] = useState("")
+
+  useEffect(() => {
+    setSiteOrigin(window.location.origin)
+  }, [])
+
+  const copyInvitationLink = () => {
+    const url = guestNameInput
+      ? `${window.location.origin}?to=${encodeURIComponent(guestNameInput)}`
+      : window.location.origin
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   // ── helpers ──────────────────────────────────────────────
   const set = (path: string[], value: any) =>
@@ -147,6 +164,46 @@ export default function AdminSettingsPage() {
         }
       />
 
+      {/* ── Link Generator ──────────────────────────────────── */}
+      <Card className="border-(--color-gold)/30 bg-(--color-gold)/5 shadow-soft rounded-2xl overflow-hidden">
+        <CardHeader className="border-b border-(--color-gold)/20">
+          <CardTitle className="font-heading text-lg flex items-center gap-2">
+            <Share2 className="h-4 w-4 text-(--color-gold)" />
+            Bagikan Undangan Personal
+          </CardTitle>
+          <CardDescription>
+            Masukkan nama tamu untuk membuat tautan undangan yang menyapa mereka langsung. Kirim via WhatsApp.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-6 space-y-3">
+          <div className="flex gap-2">
+            <Input
+              placeholder="Nama tamu (contoh: Pak Budi, Keluarga Wijaya)"
+              value={guestNameInput}
+              onChange={(e) => setGuestNameInput(e.target.value)}
+              className="rounded-xl bg-white/60"
+            />
+            <Button
+              type="button"
+              onClick={copyInvitationLink}
+              className="shrink-0 gap-2 rounded-full bg-(--color-bg-dark) hover:bg-(--color-gold) hover:text-(--color-bg-dark) text-white shadow-soft px-5"
+            >
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {copied ? "Tersalin!" : "Salin"}
+            </Button>
+          </div>
+          {siteOrigin && (
+            <p className="text-xs font-mono text-muted-foreground bg-white/60 rounded-lg px-3 py-2 break-all border border-border/40">
+              {siteOrigin}
+              {guestNameInput ? `?to=${encodeURIComponent(guestNameInput)}` : ""}
+            </p>
+          )}
+          <p className="text-xs text-muted-foreground">
+            Tamu akan disambut dengan nama tersebut di layar pembuka undangan. Kosongkan untuk tautan umum.
+          </p>
+        </CardContent>
+      </Card>
+
       <Tabs defaultValue="mempelai" className="space-y-6">
         <TabsList className="grid grid-cols-6 w-full max-w-3xl bg-muted/40 p-1 rounded-xl">
           <TabsTrigger value="mempelai"  className="text-xs sm:text-sm gap-1.5 rounded-lg py-2"><User      className="h-3.5 w-3.5 hidden sm:block" />Mempelai</TabsTrigger>
@@ -260,7 +317,7 @@ export default function AdminSettingsPage() {
                   </div>
                   <div className="space-y-1.5">
                     <Label>Bio / Quote Singkat</Label>
-                    <Textarea value={config.bride.bio} onChange={(e) => handleBrideChange("bride", e.target.value)} rows={3} className="rounded-xl bg-white/50 resize-none" />
+                    <Textarea value={config.bride.bio} onChange={(e) => handleBrideChange("bio", e.target.value)} rows={3} className="rounded-xl bg-white/50 resize-none" />
                   </div>
                   <div className="space-y-1.5">
                     <Label className="flex items-center gap-1.5">
@@ -456,7 +513,7 @@ export default function AdminSettingsPage() {
                   <div className="space-y-1.5 md:col-span-2">
                     <Label className="flex items-center gap-1.5">
                       <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
-                      Foto Hero (Desktop Background — maks 5MB)
+                      Foto Pembuka & Hero (Layar Splash + Desktop Background — maks 5MB)
                     </Label>
                     <FileUploadInput
                       value={config.hero.image}

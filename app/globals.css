@@ -376,6 +376,19 @@
 }
 
 /* ============================================
+   Loading screen opening animation
+   ============================================ */
+.loading-screen {
+  transition: transform 900ms cubic-bezier(0.76, 0, 0.24, 1), opacity 900ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen {
+    transition: opacity 300ms ease;
+  }
+}
+
+/* ============================================
    Decorative ornaments & animations
    ============================================ */
 .ornament-divider {
@@ -513,34 +526,26 @@
    sambil menjaga keterbacaan teks.
    ============================================ */
 @media (max-width: 767px) {
-  /* Loading screen: sedikit transparan, video tetap terlihat */
-  .loading-screen {
-    background: color-mix(in srgb, var(--color-bg-primary) 38%, transparent) !important;
-    backdrop-filter: blur(4px) !important;
-  }
-
-  /* Default semua section: 45% opaque cream + blur untuk readability */
+  /* Default semua section: semi-transparan agar video background terlihat jelas */
   main section {
-    background-color: color-mix(in srgb, var(--color-bg-primary) 45%, transparent) !important;
-    backdrop-filter: blur(4px) !important;
+    background-color: color-mix(in srgb, var(--color-bg-primary) 42%, transparent) !important;
   }
 
   /* Hero: sepenuhnya transparan, video tampil 100% */
   main section#hero {
     background-color: transparent !important;
-    backdrop-filter: none !important;
   }
 
   /* Card-background sections (couple, venue, gift): pakai --color-bg-card */
   main section#couple,
   main section#venue,
   main section#gift {
-    background-color: color-mix(in srgb, var(--color-bg-card) 48%, transparent) !important;
+    background-color: color-mix(in srgb, var(--color-bg-card) 44%, transparent) !important;
   }
 
   /* Gallery: pakai --color-bg-primary (cream), bukan card */
   main section#gallery {
-    background-color: color-mix(in srgb, var(--color-bg-primary) 45%, transparent) !important;
+    background-color: color-mix(in srgb, var(--color-bg-primary) 42%, transparent) !important;
   }
 
   /* Dark-themed sections: cukup opaque agar teks terang tetap terbaca */
@@ -552,6 +557,5 @@
   /* Footer: paling opaque karena elemen teks paling padat */
   main footer {
     background: color-mix(in srgb, var(--color-bg-dark) 65%, transparent) !important;
-    backdrop-filter: blur(4px) !important;
   }
 }
