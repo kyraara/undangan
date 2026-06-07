@@ -36,9 +36,11 @@ export default function AdminSettingsPage() {
   }, [])
 
   const copyInvitationLink = () => {
-    const url = guestNameInput
-      ? `${window.location.origin}?to=${encodeURIComponent(guestNameInput)}`
-      : window.location.origin
+    let url = window.location.origin
+    if (guestNameInput) {
+      const encoded = btoa(encodeURIComponent(guestNameInput))
+      url += `?g=${encodeURIComponent(encoded)}`
+    }
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
@@ -195,7 +197,7 @@ export default function AdminSettingsPage() {
           {siteOrigin && (
             <p className="text-xs font-mono text-muted-foreground bg-white/60 rounded-lg px-3 py-2 break-all border border-border/40">
               {siteOrigin}
-              {guestNameInput ? `?to=${encodeURIComponent(guestNameInput)}` : ""}
+              {guestNameInput ? `?g=${encodeURIComponent(btoa(encodeURIComponent(guestNameInput)))}` : ""}
             </p>
           )}
           <p className="text-xs text-muted-foreground">

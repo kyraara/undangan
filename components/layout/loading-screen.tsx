@@ -54,9 +54,9 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
         </p>
 
         {/* Names */}
-        <h1 className="anim-delay-300 mt-2 font-display text-6xl leading-none text-white sm:text-7xl animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
+        <h1 className="anim-delay-300 mt-2 w-full font-display text-[8vw] leading-none text-white sm:text-6xl animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
           {groom.nameShort}
-          <span className="mx-2 text-(--color-gold)">&</span>
+          <span className="mx-[1.5vw] sm:mx-2 text-(--color-gold)">&</span>
           {bride.nameShort}
         </h1>
 

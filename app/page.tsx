@@ -24,8 +24,17 @@ export default function Page() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    const g = params.get("g")
     const to = params.get("to") || params.get("guest")
-    if (to) setGuestName(decodeURIComponent(to))
+    if (g) {
+      try {
+        setGuestName(decodeURIComponent(atob(decodeURIComponent(g))))
+      } catch {
+        setGuestName(decodeURIComponent(g))
+      }
+    } else if (to) {
+      setGuestName(decodeURIComponent(to))
+    }
   }, [])
 
   // Force play the video when component mounts to ensure immediate autoplay on mobile

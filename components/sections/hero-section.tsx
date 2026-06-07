@@ -82,7 +82,7 @@ export function HeroSection() {
           The Wedding of
         </p>
 
-        <h1 className="mt-2 text-balance font-display text-6xl leading-none text-[var(--color-text-light)] sm:text-7xl md:text-8xl">
+        <h1 className="mt-2 w-full text-balance font-display text-[8vw] leading-none text-(--color-text-light) sm:text-7xl md:text-8xl">
           {groom.nameShort}
           <span className="mx-3 text-[var(--color-gold)]">&</span>
           {bride.nameShort}
