@@ -280,7 +280,7 @@
 }
 
 @theme inline {
-  --font-display: var(--font-great-vibes);
+  --font-display: var(--font-cormorant);
   --font-heading: var(--font-playfair);
   --font-body: var(--font-lora);
   --font-sans: var(--font-lora);
@@ -346,7 +346,7 @@
    Custom utilities
    ============================================ */
 .font-display {
-  font-family: var(--font-great-vibes), cursive;
+  font-family: var(--font-cormorant), serif;
 }
 .font-heading {
   font-family: var(--font-playfair), serif;

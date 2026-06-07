@@ -1,13 +1,18 @@
 "use client"
 
-import { MapPin, Navigation } from "lucide-react"
+import { useState } from "react"
+import { MapPin, Navigation, Map, Eye } from "lucide-react"
 import { useConfig } from "@/lib/config-context"
 import { AnimatedReveal } from "@/components/ui/animated-reveal"
 import { SectionTitle } from "@/components/ui/section-title"
 
+const STREET_VIEW_URL =
+  "https://www.google.com/maps/embed?pb=!4v1780839887736!6m8!1m7!1sf2JPizlwLPDi-QovxsU61w!2m2!1d-3.835968208138377!2d104.4433209581216!3f323.32622446348176!4f-10.356851923416428!5f0.7820865974627469"
+
 export function VenueSection() {
   const { events } = useConfig()
   const venue = events[1]
+  const [tab, setTab] = useState<"map" | "street">("map")
 
   return (
     <section
@@ -25,9 +30,10 @@ export function VenueSection() {
 
         <AnimatedReveal variant="fadeUp" delay={150}>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-5 md:gap-10">
+            {/* Info card */}
             <div className="md:col-span-2">
               <div className="rounded-3xl border border-(--color-gold)/30 bg-(--color-bg-primary)/60 p-8">
-                <p className="font-display text-3xl text-(--color-gold)">
+                <p className="font-display italic text-3xl font-light text-(--color-gold)">
                   Welcome
                 </p>
                 <h3 className="mt-1 font-heading text-2xl font-semibold text-(--color-text-primary) sm:text-3xl">
@@ -50,16 +56,59 @@ export function VenueSection() {
               </div>
             </div>
 
+            {/* Map / Street View panel */}
             <div className="md:col-span-3">
+              {/* Tab switcher */}
+              <div className="mb-3 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setTab("map")}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide transition ${
+                    tab === "map"
+                      ? "bg-(--color-gold) text-(--color-bg-dark)"
+                      : "border border-(--color-gold)/40 text-(--color-text-secondary) hover:border-(--color-gold) hover:text-(--color-text-primary)"
+                  }`}
+                >
+                  <Map className="h-3.5 w-3.5" />
+                  Peta
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTab("street")}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide transition ${
+                    tab === "street"
+                      ? "bg-(--color-gold) text-(--color-bg-dark)"
+                      : "border border-(--color-gold)/40 text-(--color-text-secondary) hover:border-(--color-gold) hover:text-(--color-text-primary)"
+                  }`}
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                  Street View 360°
+                </button>
+              </div>
+
+              {/* iframe container */}
               <div className="relative overflow-hidden rounded-3xl border border-(--color-gold)/30 shadow-card">
+                {/* Regular map */}
                 <iframe
+                  key="map"
                   title={`Peta lokasi ${venue.venue}`}
                   src={venue.mapsEmbed}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="h-80 w-full sm:h-105"
-                  style={{ border: 0, filter: "saturate(0.85)" }}
                   allowFullScreen
+                  className={`h-80 w-full sm:h-105 transition-opacity duration-300 ${tab === "map" ? "block opacity-100" : "hidden opacity-0"}`}
+                  style={{ border: 0, filter: "saturate(0.85)" }}
+                />
+                {/* Street View */}
+                <iframe
+                  key="street"
+                  title={`Street View ${venue.venue}`}
+                  src={STREET_VIEW_URL}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className={`h-80 w-full sm:h-105 transition-opacity duration-300 ${tab === "street" ? "block opacity-100" : "hidden opacity-0"}`}
+                  style={{ border: 0 }}
                 />
               </div>
             </div>

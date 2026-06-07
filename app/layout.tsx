@@ -1,17 +1,18 @@
 export const dynamic = 'force-dynamic'
 
 import type { Metadata, Viewport } from "next"
-import { Great_Vibes, Playfair_Display, Lora } from "next/font/google"
+import { Cormorant_Garamond, Playfair_Display, Lora } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/sonner"
 import { getConfig } from "@/lib/get-config"
 import { ConfigProvider } from "@/lib/config-context"
 import "./globals.css"
 
-const greatVibes = Great_Vibes({
-  weight: "400",
+const cormorant = Cormorant_Garamond({
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
-  variable: "--font-great-vibes",
+  variable: "--font-cormorant",
   display: "swap",
 })
 
@@ -70,7 +71,7 @@ export default async function RootLayout({
   return (
     <html
       lang="id"
-      className={`${themeClass} ${greatVibes.variable} ${playfair.variable} ${lora.variable} bg-background`}
+      className={`${themeClass} ${cormorant.variable} ${playfair.variable} ${lora.variable} bg-background`}
     >
       <body className="font-body antialiased">
         <ConfigProvider config={config}>
