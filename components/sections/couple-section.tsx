@@ -54,10 +54,10 @@ function PersonCard({
           </div>
         </div>
 
-        <h3 className="mt-8 font-display text-5xl text-[var(--color-bg-dark)] sm:text-6xl">
+        <h3 className="mt-8 font-display text-5xl text-(--color-text-primary) sm:text-6xl">
           {name.split(" ")[0]}
         </h3>
-        <p className="mt-1 font-heading text-2xl font-medium text-[var(--color-bg-dark)] sm:text-3xl">
+        <p className="mt-1 font-heading text-2xl font-medium text-(--color-text-primary) sm:text-3xl">
           {name}
         </p>
 

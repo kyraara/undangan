@@ -64,11 +64,21 @@ export function FileUploadInput({
       if (filename) formData.append("filename", filename)
 
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData })
-      const result = await res.json()
 
-      if (!res.ok || !result.success) throw new Error(result.error || "Upload gagal.")
+      // Apache may return HTML on 413/502, so guard the JSON parse
+      let result: { success?: boolean; error?: string; path?: string } = {}
+      try {
+        result = await res.json()
+      } catch {
+        // non-JSON response (e.g. Apache 413 Entity Too Large)
+      }
 
-      onChange(result.path)
+      if (!res.ok || !result.success) {
+        const statusHint = res.status === 413 ? " (File terlalu besar, cek batas upload server)" : ` (HTTP ${res.status})`
+        throw new Error((result.error || "Upload gagal.") + statusHint)
+      }
+
+      onChange(result.path!)
       toast.success("File berhasil diunggah!")
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : "Terjadi kesalahan saat upload.")

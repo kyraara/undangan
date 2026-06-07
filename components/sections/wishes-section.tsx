@@ -154,7 +154,7 @@ export function WishesSection() {
                         {wish.nama.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-heading font-semibold text-[var(--color-bg-dark)]">
+                        <p className="font-heading font-semibold text-(--color-text-primary)">
                           {wish.nama}
                         </p>
                         <p className="text-xs text-[var(--color-text-secondary)]">

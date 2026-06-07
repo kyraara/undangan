@@ -27,11 +27,11 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
 
   return (
     <div
-      className={`loading-screen fixed inset-0 z-200 flex items-center justify-center overflow-hidden px-6 ${
-        closing ? "-translate-y-full opacity-0" : "opacity-100"
+      className={`fixed inset-0 z-200 overflow-hidden transition-transform duration-900 ease-in-out ${
+        closing ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      {/* Hero image background */}
+      {/* Background image */}
       {hero.image && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -42,72 +42,71 @@ export function LoadingScreen({ onOpen, guestName }: LoadingScreenProps) {
         />
       )}
 
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-(--color-bg-dark)/65" />
-
-      {/* Botanical ornaments */}
-      <div className="pointer-events-none absolute inset-0 opacity-25">
-        <svg
-          className="absolute -left-10 -top-10 h-64 w-64 text-(--color-sage)"
-          viewBox="0 0 100 100"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M20 80 Q 30 50, 50 40 Q 70 30, 80 20 L 78 22 Q 60 35, 45 50 Q 30 65, 22 82 Z" />
-        </svg>
-        <svg
-          className="absolute -bottom-10 -right-10 h-72 w-72 rotate-180 text-(--color-rose)"
-          viewBox="0 0 100 100"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M20 80 Q 30 50, 50 40 Q 70 30, 80 20 L 78 22 Q 60 35, 45 50 Q 30 65, 22 82 Z" />
-        </svg>
-      </div>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <div className="relative z-10 flex max-w-md flex-col items-center text-center">
-        <p className="mb-3 text-xs uppercase tracking-[0.4em] text-(--color-gold-light)/80">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+
+        {/* "The Wedding of" */}
+        <p className="anim-delay-150 text-xs uppercase tracking-[0.4em] text-(--color-gold-light)/80 animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
           The Wedding of
         </p>
-        <h1 className="font-display text-6xl leading-none text-white sm:text-7xl">
+
+        {/* Names */}
+        <h1 className="anim-delay-300 mt-2 font-display text-6xl leading-none text-white sm:text-7xl animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
           {groom.nameShort}
           <span className="mx-2 text-(--color-gold)">&</span>
           {bride.nameShort}
         </h1>
 
-        <div className="my-6 flex items-center gap-3 text-(--color-gold)" aria-hidden="true">
+        {/* Divider */}
+        <div
+          className="anim-delay-450 my-5 flex items-center gap-3 text-(--color-gold) animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]"
+          aria-hidden="true"
+        >
           <span className="h-px w-12 bg-(--color-gold)/60" />
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10 2 C 14 6, 14 14, 10 18 C 6 14, 6 6, 10 2 Z" />
           </svg>
           <span className="h-px w-12 bg-(--color-gold)/60" />
         </div>
 
-        <p className="font-heading text-lg italic text-white/80 sm:text-xl">
+        {/* Date */}
+        <p className="anim-delay-550 font-heading text-base italic text-white/75 animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
           {events[0].day}, {events[0].dateDisplay}
         </p>
 
-        <div className="mt-10 w-full rounded-2xl border border-(--color-gold)/30 bg-white/10 p-5 backdrop-blur-sm">
-          <p className="text-xs uppercase tracking-[0.25em] text-white/60">
-            Kepada Yth.
+        {/* Guest name — card hanya jika ada nama spesifik dari link admin */}
+        {guestName ? (
+          <div className="anim-delay-700 mt-8 w-full max-w-xs rounded-xl border border-(--color-gold)/25 bg-white/8 p-4 backdrop-blur-sm animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-white/55">
+              Kepada Yth. Bapak/Ibu/Saudara/i
+            </p>
+            <p className="mt-1.5 font-heading text-xl font-semibold text-white">
+              {guestName}
+            </p>
+          </div>
+        ) : (
+          <p className="anim-delay-700 mt-6 font-heading text-sm italic text-white/60 animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]">
+            Kepada Yth. Bapak / Ibu / Saudara/i
           </p>
-          <p className="mt-2 font-heading text-xl font-medium text-white sm:text-2xl">
-            {guestName || "Bapak / Ibu / Saudara/i"}
-          </p>
-          <p className="mt-1 text-sm text-white/60">
-            di Tempat
-          </p>
-        </div>
+        )}
 
+        {/* Button */}
         <button
           type="button"
           onClick={handleOpen}
-          className="group mt-8 inline-flex items-center gap-2 rounded-full border border-(--color-gold)/50 bg-white/10 px-7 py-3 font-heading text-sm tracking-wider text-white shadow-[0_4px_32px_rgba(201,168,76,0.2)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-transparent hover:bg-(--color-gold) hover:text-(--color-bg-dark)"
+          className="anim-delay-900 group mt-7 inline-flex items-center gap-2 rounded-full border border-(--color-gold)/50 bg-white/10 px-7 py-3 font-heading text-sm tracking-wider text-white shadow-[0_4px_32px_rgba(201,168,76,0.2)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-transparent hover:bg-(--color-gold) hover:text-(--color-bg-dark) animate-[fade-up_0.7s_cubic-bezier(0.16,1,0.3,1)_both]"
         >
           <Mail className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
           Buka Undangan
         </button>
+
+        {/* Disclaimer */}
+        <p className="anim-delay-1100 mt-8 text-[10px] text-white/40 animate-[fade-in_0.7s_ease_both]">
+          *Mohon maaf jika terdapat kesalahan penulisan nama &amp; gelar
+        </p>
       </div>
     </div>
   )

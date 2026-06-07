@@ -538,6 +538,20 @@ export default function AdminSettingsPage() {
                     />
                   </div>
                   <div className="space-y-1.5 md:col-span-2">
+                    <Label className="flex items-center gap-1.5">
+                      <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                      Foto Background Countdown (Bagian &quot;Menghitung Hari&quot; — maks 5MB)
+                    </Label>
+                    <FileUploadInput
+                      value={config.hero.countdownImage || ""}
+                      onChange={(v) => set(["hero", "countdownImage"], v)}
+                      type="image"
+                      filename="countdown-bg"
+                      placeholder="/images/gallery/countdown.jpg"
+                      showPreview
+                    />
+                  </div>
+                  <div className="space-y-1.5 md:col-span-2">
                     <Label>Tagline / Kutipan Undangan</Label>
                     <Textarea value={config.hero.tagline} onChange={(e) => set(["hero", "tagline"], e.target.value)} rows={3} className="rounded-xl bg-white/50 resize-none" />
                   </div>

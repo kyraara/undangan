@@ -39,7 +39,7 @@ export function SectionTitle({
       <h2
         className={cn(
           "font-heading text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl",
-          invert ? "text-[var(--color-text-light)]" : "text-[var(--color-bg-dark)]",
+          invert ? "text-(--color-text-light)" : "text-(--color-text-primary)",
         )}
       >
         {title}

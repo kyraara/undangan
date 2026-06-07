@@ -42,7 +42,7 @@ export function StorySection() {
                       <p className="font-display text-4xl text-[var(--color-gold)] sm:text-5xl">
                         {item.year}
                       </p>
-                      <h3 className="mt-1 font-heading text-xl font-semibold text-[var(--color-bg-dark)] sm:text-2xl">
+                      <h3 className="mt-1 font-heading text-xl font-semibold text-(--color-text-primary) sm:text-2xl">
                         {item.title}
                       </h3>
                       <p className="mt-2 text-pretty leading-relaxed text-[var(--color-text-secondary)]">

@@ -58,15 +58,15 @@ export default function Page() {
           loop
           muted
           playsInline
-          className="block md:hidden fixed inset-0 w-full h-full object-cover z-0 opacity-80 pointer-events-none"
+          className="block md:hidden fixed inset-0 w-full h-full object-cover z-0 opacity-100 pointer-events-none"
           src={hero.videoMobile}
         />
       )}
 
-      {/* Concept-aware color tint overlay — selaraskan warna video dengan tema aktif.
-          Hanya tampil di mobile (di atas video z-0, di bawah konten z-10). */}
+      {/* Mobile dark overlay — lapisan gelap seragam atas video agar tidak ada batas antar section.
+          z-2: di atas video(z-0), di bawah konten(z-10). */}
       <div
-        className="mobile-video-tint-overlay block md:hidden fixed inset-0 z-1 pointer-events-none"
+        className="md:hidden fixed inset-0 z-2 bg-black/42 pointer-events-none"
         aria-hidden="true"
       />
 

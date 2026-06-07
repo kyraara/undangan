@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -24,7 +24,8 @@
 /* ============================================
    Concept A — Romantic Botanical Luxury (Default)
    ============================================ */
-.theme-A, :root:not([class*="theme-"]) {
+.theme-A,
+:root:not([class*="theme-"]) {
   --color-bg-primary: #f5ecd7;
   --color-bg-dark: #2c3e2d;
   --color-bg-card: #faf7f2;
@@ -36,9 +37,14 @@
   --color-text-secondary: #6b5a45;
   --color-text-light: #faf7f2;
   --color-border: rgba(201, 168, 76, 0.3);
-  --mobile-video-tint: rgba(245, 236, 215, 0.20); /* warm cream tint */
+  --mobile-video-tint: rgba(245, 236, 215, 0.2); /* warm cream tint */
 
-  --gradient-hero: linear-gradient(160deg, #f5ecd7 0%, #e8d5b0 50%, #f5ecd7 100%);
+  --gradient-hero: linear-gradient(
+    160deg,
+    #f5ecd7 0%,
+    #e8d5b0 50%,
+    #f5ecd7 100%
+  );
   --gradient-dark: linear-gradient(180deg, #2c3e2d 0%, #1a2e1b 100%);
   --gradient-gold: linear-gradient(135deg, #c9a84c, #e8d5a3, #c9a84c);
 
@@ -162,7 +168,7 @@
   --color-text-secondary: #5e4f3c;
   --color-text-light: #faf5eb;
   --color-border: rgba(196, 92, 38, 0.25);
-  --mobile-video-tint: rgba(240, 230, 211, 0.20); /* warm bali tint */
+  --mobile-video-tint: rgba(240, 230, 211, 0.2); /* warm bali tint */
 
   --gradient-hero: linear-gradient(180deg, #f0e6d3 0%, #e5d7bd 100%);
   --gradient-dark: linear-gradient(180deg, #3d5a3e 0%, #273b28 100%);
@@ -379,7 +385,9 @@
    Loading screen opening animation
    ============================================ */
 .loading-screen {
-  transition: transform 900ms cubic-bezier(0.76, 0, 0.24, 1), opacity 900ms ease;
+  transition:
+    transform 900ms cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 900ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -399,11 +407,16 @@
 }
 .ornament-divider::before,
 .ornament-divider::after {
-  content: '';
+  content: "";
   flex: 1;
   max-width: 80px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold),
+    transparent
+  );
 }
 
 /* Falling petals */
@@ -510,52 +523,79 @@
   animation: float-y 4s ease-in-out infinite;
 }
 
-/* ============================================
-   Mobile Video — Concept Tint Overlay
-   Kelas ini dipakai di app/page.tsx untuk
-   mewarnai video sesuai tema aktif.
-   ============================================ */
-.mobile-video-tint-overlay {
-  background: var(--mobile-video-tint, rgba(245, 236, 215, 0.20));
+/* Animation delay utilities — used for stagger entrance in loading screen */
+.anim-delay-150 {
+  animation-delay: 150ms;
+  animation-fill-mode: both;
+}
+.anim-delay-300 {
+  animation-delay: 300ms;
+  animation-fill-mode: both;
+}
+.anim-delay-450 {
+  animation-delay: 450ms;
+  animation-fill-mode: both;
+}
+.anim-delay-550 {
+  animation-delay: 550ms;
+  animation-fill-mode: both;
+}
+.anim-delay-700 {
+  animation-delay: 700ms;
+  animation-fill-mode: both;
+}
+.anim-delay-900 {
+  animation-delay: 900ms;
+  animation-fill-mode: both;
+}
+.anim-delay-1100 {
+  animation-delay: 1100ms;
+  animation-fill-mode: both;
 }
 
 /* ============================================
-   Mobile Video Background Transparent Styling
-   Semua section dibuat semi-transparan agar
-   video background di mobile tetap terlihat,
-   sambil menjaga keterbacaan teks.
+   Mobile Video — Section Transparent Styling
+   Semua section transparan agar video background
+   terlihat bersih tanpa batas antar section.
+   Dark overlay ditangani via page.tsx (z-2).
    ============================================ */
+
+/* Tint overlay: dinonaktifkan, dark overlay page.tsx lebih konsisten */
+.mobile-video-tint-overlay {
+  background: transparent;
+}
+
 @media (max-width: 767px) {
-  /* Default semua section: semi-transparan agar video background terlihat jelas */
-  main section {
-    background-color: color-mix(in srgb, var(--color-bg-primary) 42%, transparent) !important;
-  }
-
-  /* Hero: sepenuhnya transparan, video tampil 100% */
-  main section#hero {
-    background-color: transparent !important;
-  }
-
-  /* Card-background sections (couple, venue, gift): pakai --color-bg-card */
-  main section#couple,
-  main section#venue,
-  main section#gift {
-    background-color: color-mix(in srgb, var(--color-bg-card) 44%, transparent) !important;
-  }
-
-  /* Gallery: pakai --color-bg-primary (cream), bukan card */
-  main section#gallery {
-    background-color: color-mix(in srgb, var(--color-bg-primary) 42%, transparent) !important;
-  }
-
-  /* Dark-themed sections: cukup opaque agar teks terang tetap terbaca */
-  main section#event,
-  main section#rsvp {
-    background: color-mix(in srgb, var(--color-bg-dark) 58%, transparent) !important;
-  }
-
-  /* Footer: paling opaque karena elemen teks paling padat */
+  /* Semua section & footer: transparan sepenuhnya */
+  main section,
   main footer {
-    background: color-mix(in srgb, var(--color-bg-dark) 65%, transparent) !important;
+    background: transparent !important;
+  }
+
+  /* Override CSS variables text agar terbaca di atas backdrop gelap */
+  main section,
+  main footer {
+    --color-text-primary: rgba(250, 247, 242, 0.92);
+    --color-text-secondary: rgba(250, 247, 242, 0.68);
+    --color-bg-primary: transparent;
+    --color-bg-card: transparent;
+  }
+
+  /* Form inputs: tetap terlihat dengan bg tipis */
+  main section input,
+  main section textarea,
+  main section select {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  }
+
+  /* Hapus backdrop blur supaya video tetap tajam */
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }

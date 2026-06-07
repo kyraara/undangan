@@ -64,7 +64,7 @@ export function GiftSection() {
                           <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
                             Bank
                           </p>
-                          <p className="font-heading font-semibold text-[var(--color-bg-dark)]">
+                          <p className="font-heading font-semibold text-(--color-text-primary)">
                             {account.bank}
                           </p>
                         </div>
@@ -77,7 +77,7 @@ export function GiftSection() {
                       </p>
                     </div>
                     <div className="flex items-center justify-between gap-3 px-6 py-4">
-                      <p className="select-all font-mono text-lg tracking-wider text-[var(--color-bg-dark)] sm:text-xl">
+                      <p className="select-all font-mono text-lg tracking-wider text-(--color-text-primary) sm:text-xl">
                         {account.number}
                       </p>
                       <button

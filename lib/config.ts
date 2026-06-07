@@ -101,7 +101,8 @@ export const weddingConfig = {
 ],
   hero: {
     image: "/images/gallery/hero.jpg",
-    videoMobile: "/Vidio/1.mp4",
+    videoMobile: "/video/1.mp4",
+    countdownImage: "",
     tagline: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri",
   },
   story: [
