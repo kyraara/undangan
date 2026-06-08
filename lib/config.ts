@@ -56,12 +56,14 @@ export const weddingConfig = {
   {
     "bank": "BCA",
     "number": "1234567890",
-    "holder": "Refki Saputra"
+    "holder": "Refki Saputra",
+    "qrImage": ""
   },
   {
     "bank": "Mandiri",
     "number": "0987654321",
-    "holder": "Putri"
+    "holder": "Putri",
+    "qrImage": ""
   }
 ],
   music: {

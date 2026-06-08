@@ -430,7 +430,7 @@ export default function AdminSettingsPage() {
                   <div className="grid gap-4 md:grid-cols-3">
                     <div className="space-y-1.5">
                       <Label>Nama Bank / E-Wallet</Label>
-                      <Input value={acc.bank} onChange={(e) => handleBankChange(idx, "bank", e.target.value)} className="rounded-xl bg-white/50" />
+                      <Input value={acc.bank} onChange={(e) => handleBankChange(idx, "bank", e.target.value)} className="rounded-xl bg-white/50" placeholder="BCA, BRI, BNI, Mandiri…" />
                     </div>
                     <div className="space-y-1.5">
                       <Label>Nomor Rekening</Label>
@@ -440,6 +440,21 @@ export default function AdminSettingsPage() {
                       <Label>Atas Nama</Label>
                       <Input value={acc.holder} onChange={(e) => handleBankChange(idx, "holder", e.target.value)} className="rounded-xl bg-white/50" />
                     </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label className="flex items-center gap-1.5">
+                      <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                      QR Code / QRIS (opsional)
+                    </Label>
+                    <FileUploadInput
+                      value={acc.qrImage || ""}
+                      onChange={(v) => handleBankChange(idx, "qrImage", v)}
+                      type="image"
+                      filename={`qr-${acc.bank.toLowerCase().replace(/\s+/g, "-")}`}
+                      placeholder="Upload gambar QR code pembayaran"
+                      showPreview
+                    />
+                    <p className="text-xs text-muted-foreground">QR akan ditampilkan di sisi belakang kartu rekening (flip).</p>
                   </div>
                 </div>
               ))}
